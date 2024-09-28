@@ -1,55 +1,87 @@
 
+In this project you are required to use control-flow testing to analyze a fault-seeded Java program **Printtokens.java**, write JUnit test methods to test the faulty program, and fix faults if found. The project can be divided into two major parts: **preparing test cases** and **writing test methods**.
 
-## PrinttokensTesting
+[Project slides]()
 
-In this project you are required to use control-flow testing to analyze a fault-seeded Java program **Printtokens.java**, write JUnit test methods to test the faulty program, and fix faults if found.  
+## Test Case Preparation
 
+### Create Control Flow Graph
+   - Draw a control flow graph for each method
+   - Example shown in [Video](https://youtu.be/lj7HY7ENU8Y)
 
-### Preparation
-- Create a Github account ([help](https://docs.github.com/en/get-started/quickstart/creating-an-account-on-github)).
-- Generate a personal access token for Github account ([help](https://docs.github.com/en/enterprise-server@3.9/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)).
-- Install [Eclipse IDE](https://riyagoel192.medium.com/how-to-download-eclipse-java-ide-on-windows-52608032d6d9), [Git](https://www.howtogeek.com/832083/how-to-install-git-on-windows/), and [Java 8](https://www.java.com/en/download/manual.jsp). You can use other IDEs like Visual Studio Code instead of Eclipse. 
+### Design Test Cases 
+   - Create test paths
+   - Identity inputs and expected outputs
+   - Example Given in [Video](https://youtu.be/xfANxegQJnQ)
+   - Useful tool [**Oracle**](./oracle/Printtokens_Oracle.jar): provides the expected outputs for the given inputs. To open it, jre 8 is required.
 
+## Test Method Writing
 
+### Requirements
 
-### Clone a Private Project 
+- [Eclipse IDE](https://riyagoel192.medium.com/how-to-download-eclipse-java-ide-on-windows-52608032d6d9) 
+- [Git](https://www.howtogeek.com/832083/how-to-install-git-on-windows/)
+- [Java 8](https://www.java.com/en/download/manual.jsp)
 
-1. Launch Git Bash in Windows or a terminal in Linux with git installed.
+Note: you can use other IDEs like Visual Studio Code instead of Eclipse. 
 
-2. Navigate to the desired directory where you want your project resides. 
+### Write Test Methods with JUnit Locally
 
-3. Clone your project:
+1. Launch Git Bash and navigate to the directory where you want to work on your project. 
 
+2. Clone (download) your project.
+- Generate a personal access token ([help](https://docs.github.com/en/enterprise-server@3.9/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens))
+- Clone the project repository:
 ```
 git clone https://<your GitHub access token>@github.com/cse4321/<your repository name>
-E.g.:https://ghp_zvmpaRAjpE8UPuxjCXf5Dg3lW11GpC2b@github.com/cse4321/cloudstorage_test.git
+E.g.: git clone https://ghp_zvmpaRAjpE8UPuxjCXf5Dg3lW11GpC2b@github.com/cse4321/PrinttokensTesting.git
 ```
 
-4. Go inside the project root folder where the main branch by default is downloaded. You can start to write JUnit test methods for the methods in *Printtokens.java* on the main branch. 
+3. Write test methods with JUnit in Eclipse IDE. 
+- Launch Eclipse IDE and import the project (File -> Open Projects from File System -> select the project folder -> Finish)
+- Configure the required JUnit-required jar files
+- Study how to write test methods in branch **eg_junit_tests** first
 
-5. You can study how to write JUnit test methods by working on the provided example in the branch: eg_junit_tests.
+    - Switch to branch eg_junit_tests in Git Bash 
+    ```
+    git checkout eg_junit_tests 
+    ```
+    - Study and explore how to write test methods in Eclipse IDE in **eg_junit_tests** with resources:[Video](https://youtu.be/DuAqP8IRcbY) and [System Rules](https://stefanbirkner.github.io/system-rules/)
 
-```
-git checkout eg_junit_tests
-```
-
-
-
-
-### Resources
-**Videos**. The recorded videos show the steps to work on this project with examples.
-- [Drawing Control Flow Graph](https://youtu.be/lj7HY7ENU8Y)
-
-- [Creating Test Paths, Identifying Test Inputs and Expected Outputs](https://youtu.be/xfANxegQJnQ)
-
-- [Writing Tests and Debugging in Java](https://youtu.be/DuAqP8IRcbY)
- 
-**Oracle**. [*Printtokens_Oracle.jar*](./oracle/Printtokens_Oracle.jar) an executable jar file that provides the execpted output for the methods in *Printtokens.java* when giving inputs. To run the tool, you need to have jre 8 installed.
+    - Switch to back to branch **main** in Git Bash 
+  ```
+  git checkout main 
+  ```
+  
+4. Write your test methods in branch **main**.
 
 
-**Links**: 
-- [System Rules](https://stefanbirkner.github.io/system-rules/)
-- [Running and debugging Java](https://code.visualstudio.com/docs/java/java-debugging)
+5. Commit and push your work with Git Bash
+    - Set up your Git user (if not already configured)
+    ```
+    git config user.name "your name"
+    git config user.email "your email" 
+    ```
+   - Stage all modified files
+    ```
+    git add .
+    ``` 
+   - Commit the changes
+    ```
+    git commit -m "commit message"
+    ``` 
+   - push the changes to the project repository in GitHub
+    ```
+    git push origin main
+    ``` 
+
+### Submission
+- Check all the deliverables the [project slides]().
+- Put all non-code files in Branch **main** in the folder "doc".
+- Commit the changes before the deadline. 
+
+
+
 
 ### Configure jar files
 There are three jar files required to write JUnit test methods.
