@@ -1,7 +1,13 @@
 
-In this project you are required to use control-flow testing to analyze a fault-seeded Java program **Printtokens.java**, write JUnit test methods to test the faulty program, and fix faults if found. The project can be divided into two major parts: **preparing test cases** and **writing test methods**.
+In this project you are required to use control-flow testing to analyze a fault-seeded Java program **Printtokens.java**, write JUnit test methods to test the faulty program, and fix faults if found.
 
 [Project slides]()
+
+The project can be divided into two major parts: 
+- **preparing test cases**
+- **writing test methods**
+
+<hr>
 
 ## Test Case Preparation
 
@@ -31,6 +37,7 @@ Note: you can use other IDEs like Visual Studio Code instead of Eclipse.
 
 2. Clone (download) your project.
 - Generate a personal access token ([help](https://docs.github.com/en/enterprise-server@3.9/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens))
+ 
 - Clone the project repository:
 ```
 git clone https://<your GitHub access token>@github.com/cse4321/<your repository name>
@@ -82,6 +89,7 @@ E.g.: git clone https://ghp_zvmpaRAjpE8UPuxjCXf5Dg3lW11GpC2b@github.com/cse4321/
 
 
 
+<hr>
 
 ### Configure jar files
 There are three jar files required to write JUnit test methods.
