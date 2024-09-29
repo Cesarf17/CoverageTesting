@@ -1,9 +1,11 @@
 
-In this project you are required to use control-flow testing to analyze a fault-seeded Java program **Printtokens.java**, write JUnit test methods to test the faulty program, and fix faults if found.
+
+In this project, you will perform control-flow testing on a fault-seeded Java program, **Printtokens.java**. Your tasks include drawing **control flow graphs** to derive test cases, writing **JUnit test methods**, and identifying and fixing any faults that are discovered. You are required to achieve **edge coverage** for individual methods (**unit testing**) and maximize **code coverage** for the main method (**program-level testing**).
+
 
 [Project slides](./project-slides.pdf)
 
-The project can be divided into two major parts: 
+The project can be broadly divided into two major parts: 
 - **preparing test cases**
 - **writing test methods**
 
