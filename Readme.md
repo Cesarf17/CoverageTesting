@@ -38,7 +38,7 @@ Note: you can use other IDEs like Visual Studio Code instead of Eclipse.
 2. Clone (download) your project.
 - Generate a personal access token ([help](https://docs.github.com/en/enterprise-server@3.9/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens))
  
-- Clone the project repository:
+- Clone the project repository in Git Bash:
 ```
 git clone https://<your GitHub access token>@github.com/cse4321/<your repository name>
 E.g.: git clone https://ghp_zvmpaRAjpE8UPuxjCXf5Dg3lW11GpC2b@github.com/cse4321/PrinttokensTesting.git
@@ -53,7 +53,7 @@ E.g.: git clone https://ghp_zvmpaRAjpE8UPuxjCXf5Dg3lW11GpC2b@github.com/cse4321/
     ```
     git checkout eg_junit_tests 
     ```
-    - Study and explore how to write test methods in Eclipse IDE in **eg_junit_tests** with resources:[Video](https://youtu.be/DuAqP8IRcbY) and [System Rules](https://stefanbirkner.github.io/system-rules/)
+    - Study and explore how to write test methods in Eclipse IDE in Branch **eg_junit_tests** (resources:[Video](https://youtu.be/DuAqP8IRcbY) and [System Rules](https://stefanbirkner.github.io/system-rules/))
 
     - Switch to back to Branch **main** in Git Bash 
   ```
