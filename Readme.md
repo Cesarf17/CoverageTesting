@@ -1,7 +1,7 @@
 
 In this project you are required to use control-flow testing to analyze a fault-seeded Java program **Printtokens.java**, write JUnit test methods to test the faulty program, and fix faults if found.
 
-[Project slides]()
+[Project slides](./project-slides.pdf)
 
 The project can be divided into two major parts: 
 - **preparing test cases**
@@ -47,20 +47,20 @@ E.g.: git clone https://ghp_zvmpaRAjpE8UPuxjCXf5Dg3lW11GpC2b@github.com/cse4321/
 3. Write test methods with JUnit in Eclipse IDE. 
 - Launch Eclipse IDE and import the project (File -> Open Projects from File System -> select the project folder -> Finish)
 - Configure the required JUnit-required jar files
-- Study how to write test methods in branch **eg_junit_tests** first
+- Study how to write test methods in Branch **eg_junit_tests** first
 
-    - Switch to branch eg_junit_tests in Git Bash 
+    - Switch to Branch eg_junit_tests in Git Bash 
     ```
     git checkout eg_junit_tests 
     ```
     - Study and explore how to write test methods in Eclipse IDE in **eg_junit_tests** with resources:[Video](https://youtu.be/DuAqP8IRcbY) and [System Rules](https://stefanbirkner.github.io/system-rules/)
 
-    - Switch to back to branch **main** in Git Bash 
+    - Switch to back to Branch **main** in Git Bash 
   ```
   git checkout main 
   ```
   
-4. Write your test methods in branch **main**.
+4. Write your test methods in Branch **main**.
 
 
 5. Commit and push your work with Git Bash
@@ -83,8 +83,8 @@ E.g.: git clone https://ghp_zvmpaRAjpE8UPuxjCXf5Dg3lW11GpC2b@github.com/cse4321/
     ``` 
 
 ### Submission
-- Check all the deliverables the [project slides]().
-- Put all non-code files in Branch **main** in the folder "doc".
+- Check all the deliverables in the [project slides](./project-slides.pdf).
+- Put all the non-code files in Branch **main** in a folder "docs".
 - Commit the changes before the deadline. 
 
 
