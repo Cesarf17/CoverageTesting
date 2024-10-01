@@ -63,7 +63,7 @@ E.g.: git clone https://ghp_zvmpaRAjpE8UPuxjCXf5Dg3lW11GpC2b@github.com/cse4321/
   git checkout main 
   ```
   
-4. Write your test methods in Branch **main**.
+4. Write and execute your JUnit test methods in Branch **main** and fix found faults.
 
 
 5. Commit and push your work with Git Bash
