@@ -47,7 +47,7 @@ git clone https://<your GitHub access token>@github.com/cse4321/<your repository
 E.g.: git clone https://ghp_zvmpaRAjpE8UPuxjCXf5Dg3lW11GpC2b@github.com/cse4321/PrinttokensTesting.git
 ```
 
-3. Write test methods with JUnit in Eclipse IDE. 
+3. Explore how to write test methods with JUnit in Eclipse IDE. 
 - Launch Eclipse IDE and import the project (File -> Open Projects from File System -> select the project folder -> Finish)
 - Configure the required JUnit-required jar files
 - Study how to write test methods in Branch **eg_junit_tests** first
