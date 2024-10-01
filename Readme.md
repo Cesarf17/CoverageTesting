@@ -26,7 +26,7 @@ The project can be broadly divided into 4 major steps:
 
 ## JUnit Test Method Writing and Executing and Fault Fixing
 
-### Requirements
+### Recommendations
 
 - [Eclipse IDE](https://riyagoel192.medium.com/how-to-download-eclipse-java-ide-on-windows-52608032d6d9) 
 - [Git](https://www.howtogeek.com/832083/how-to-install-git-on-windows/)
