@@ -34,7 +34,7 @@ The project can be broadly divided into 4 major steps:
 
 Note: you can use other IDEs like Visual Studio Code instead of Eclipse. 
 
-### JUnit Test Methods Writing and Executing and Fault fixing 
+### Write and execute JUnit Test Methods and fix the found faults. 
 
 1. Launch Git Bash and navigate to the directory where you want to work on your project. 
 
