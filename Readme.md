@@ -3,7 +3,7 @@
 In this project, you will perform control-flow testing on a fault-seeded Java program, [**Printtokens.java**](./src/Printtokens.java). Your tasks include drawing **control flow graphs** to derive test cases, writing **JUnit test methods**, and identifying and fixing any faults that are discovered. You are required to achieve **edge coverage** for individual methods (**unit testing**) and maximize **code coverage** for the main method (**program-level testing**).
 
 
-[Project slides](./project-slides.pdf)
+[Project slides](./project.fall.2024.pdf)
 
 The project can be broadly divided into 4 major steps: 
 - Prepare test cases
@@ -63,7 +63,7 @@ E.g.: git clone https://ghp_zvmpaRAjpE8UPuxjCXf5Dg3lW11GpC2b@github.com/cse4321/
   git checkout main 
   ```
   
-4. Write and execute JUnit test methods in Branch **main** and fix bugs if found.
+4. Write your test methods in Branch **main**.
 
 
 5. Commit and push your work with Git Bash
@@ -86,11 +86,11 @@ E.g.: git clone https://ghp_zvmpaRAjpE8UPuxjCXf5Dg3lW11GpC2b@github.com/cse4321/
     ``` 
 
 ### Submission
-- Check all the deliverables in the [project slides](./project-slides.pdf).
-- Put all the non-code files in Branch **main** in a folder "docs".
+- Check all the deliverables in the [project slides](./project.fall.2024.pdf).
+- Put all the non-code files in Branch **main** in a folder "deliverables".
 - Commit the changes before the deadline. 
 
-
+Note: for the code coverage reports, they must be **HTML** files. In addition, two coverage reports must be given: **one for the unit tests** of individual methods and **one for the program-level tests** of the main method
 
 <hr>
 
