@@ -87,7 +87,7 @@ E.g.: git clone https://ghp_zvmpaRAjpE8UPuxjCXf5Dg3lW11GpC2b@github.com/cse4321/
 
 ### Submission
 - Check all the deliverables in the [project slides](./project.fall.2024.pdf).
-- Put all the non-code files in Branch **main** in a folder "deliverables".
+- Put all the deliverables in Branch **main** in a folder "deliverables".
 - Commit the changes before the deadline. 
 
 Note: for the code coverage reports, they must be **HTML** files. In addition, two coverage reports must be given: **one for the unit tests** of individual methods and **one for the program-level tests** of the main method.
