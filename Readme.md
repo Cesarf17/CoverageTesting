@@ -24,7 +24,7 @@ The project can be broadly divided into 4 major steps:
    - Example Given in [Video](https://youtu.be/xfANxegQJnQ)
    - Useful tool [**Oracle**](./oracle/Printtokens_Oracle.jar): provides the expected outputs for the given inputs. To open it, jre 8 is required.
 
-## Test Method Writing
+## Test Method Writing and Executing and Fault Fixing
 
 ### Requirements
 
