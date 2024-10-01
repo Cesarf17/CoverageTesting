@@ -5,10 +5,11 @@ In this project, you will perform control-flow testing on a fault-seeded Java pr
 
 [Project slides](./project-slides.pdf)
 
-The project can be broadly divided into two major parts: 
-- Preparing test cases
-- Writing test methods
-
+The project can be broadly divided into 4 major steps: 
+- Prepare test cases
+- Write JUnit test methods
+- Execute JUnit tests
+- Fix faults
 <hr>
 
 ## Test Case Preparation
@@ -33,7 +34,7 @@ The project can be broadly divided into two major parts:
 
 Note: you can use other IDEs like Visual Studio Code instead of Eclipse. 
 
-### Write Test Methods with JUnit Locally
+### JUnit Test Methods Writing and Executing and Fault fixing 
 
 1. Launch Git Bash and navigate to the directory where you want to work on your project. 
 
@@ -66,7 +67,7 @@ E.g.: git clone https://ghp_zvmpaRAjpE8UPuxjCXf5Dg3lW11GpC2b@github.com/cse4321/
 
 
 5. Commit and push your work with Git Bash
-    - Set up your Git user (if not already configured)
+    - Set up user info (if not already configured)
     ```
     git config user.name "your name"
     git config user.email "your email" 
