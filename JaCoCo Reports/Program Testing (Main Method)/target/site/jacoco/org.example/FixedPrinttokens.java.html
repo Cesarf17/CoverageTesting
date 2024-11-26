@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FixedPrinttokens.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ProjTest</a> &gt; <a href="index.source.html" class="el_package">org.example</a> &gt; <span class="el_source">FixedPrinttokens.java</span></div><h1>FixedPrinttokens.java</h1><pre class="source lang-java linenums">package org.example;
+
+import java.io.*;
+
+<span class="fc" id="L5">public class FixedPrinttokens{</span>
+<span class="fc" id="L6">    static int error = 0;</span>
+<span class="fc" id="L7">    static int keyword = 1;</span>
+<span class="fc" id="L8">    static int spec_symbol = 2;</span>
+<span class="fc" id="L9">    static int identifier = 3;</span>
+<span class="fc" id="L10">    static int num_constant = 41;</span>
+<span class="fc" id="L11">    static int str_constant = 42;</span>
+<span class="fc" id="L12">    static int char_constant = 43;</span>
+<span class="fc" id="L13">    static int comment = 5;</span>
+
+    /***********************************************/
+    /* NMAE:	open_character_stream          */
+    /* INPUT:       a filename                     */
+    /* OUTPUT:      a BufferedReader */
+    /* DESCRIPTION: when not given a filename,     */
+    /*              open stdin,otherwise open      */
+    /*              the existed file               */
+    /***********************************************/
+    BufferedReader open_character_stream(String fname) {
+<span class="fc" id="L24">        BufferedReader br = null;</span>
+<span class="pc bpc" id="L25" title="1 of 4 branches missed.">        if (fname == null || fname.equals(&quot;&quot;)) {//Fault #9: Added extra condition</span>
+<span class="fc" id="L26">            br = new BufferedReader(new InputStreamReader(System.in));</span>
+        } else {
+            try {
+<span class="fc" id="L29">                FileReader fr = new FileReader(fname);</span>
+<span class="fc" id="L30">                br = new BufferedReader(fr);</span>
+<span class="fc" id="L31">            } catch (FileNotFoundException e) {</span>
+<span class="fc" id="L32">                System.out.print(&quot;The file &quot; + fname +&quot; doesn't exists\n&quot;);</span>
+<span class="fc" id="L33">                return null;</span>
+<span class="fc" id="L34">            }</span>
+        }
+
+<span class="fc" id="L37">        return br;</span>
+    }
+
+    /**********************************************/
+    /* NAME:	get_char                      */
+    /* INPUT:       a BufferedReader      */
+    /* OUTPUT:      a character; when EOF, return -1              */
+    /**********************************************/
+    int get_char(BufferedReader br){
+<span class="fc" id="L46">        int ch = 0;</span>
+        try {
+<span class="fc" id="L48">            br.mark(4);</span>
+<span class="fc" id="L49">            ch= br.read();</span>
+<span class="nc" id="L50">        } catch (IOException e) {</span>
+<span class="nc" id="L51">            e.printStackTrace();</span>
+<span class="fc" id="L52">        }</span>
+<span class="fc" id="L53">        return ch;</span>
+    }
+
+    /***************************************************/
+    /* NAME:      unget_char                           */
+    /* INPUT:     a BufferedReader,a character */
+    /* OUTPUT:    a character                          */
+    /* DESCRIPTION:move backward.when unable to put back,return -1(EOF)  */
+    /***************************************************/
+    char unget_char (int ch,BufferedReader br) {
+        try {
+<span class="fc" id="L64">            br.reset();</span>
+<span class="nc" id="L65">        } catch (IOException e) {</span>
+<span class="nc" id="L66">            e.printStackTrace();</span>
+<span class="fc" id="L67">        }</span>
+<span class="fc" id="L68">        return 0;</span>
+    }
+
+    /********************************************************/
+    /* NAME:	open_token_stream                       */
+    /* INPUT:       a filename                              */
+    /* OUTPUT:      a BufferedReader             */
+    /* DESCRIPTION: when filename is EMPTY,choice standard  */
+    /*              input device as input source            */
+    /********************************************************/
+    BufferedReader open_token_stream(String fname)
+    {
+        BufferedReader br;
+<span class="pc bpc" id="L81" title="1 of 4 branches missed.">        if(fname==null || fname.equals(&quot;&quot;))</span>
+<span class="fc" id="L82">            br=open_character_stream(null);</span>
+        else
+<span class="fc" id="L84">            br=open_character_stream(fname);</span>
+<span class="fc" id="L85">        return br;</span>
+    }
+
+    /********************************************************/
+    /* NAME :	get_token                               */
+    /* INPUT: 	a BufferedReader          */
+    /* OUTPUT:      a token string                                */
+    /* DESCRIPTION: according the syntax of tokens,dealing  */
+    /*              with different case  and get one token  */
+    /********************************************************/
+    String get_token(BufferedReader br)
+    {
+<span class="fc" id="L97">        int i=0,j;</span>
+<span class="fc" id="L98">        int id=0;</span>
+<span class="fc" id="L99">        int res = 0;</span>
+<span class="fc" id="L100">        char ch = '\0';</span>
+
+<span class="fc" id="L102">        StringBuilder sb = new StringBuilder();</span>
+
+        try {
+<span class="fc" id="L105">            res = get_char(br);</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">            if (res == -1) {</span>
+<span class="fc" id="L107">                return null;</span>
+            }
+<span class="fc" id="L109">            ch = (char)res;</span>
+<span class="fc bfc" id="L110" title="All 6 branches covered.">            while(ch==' '||ch=='\n' || ch == '\r')</span>
+            {
+<span class="fc" id="L112">                res = get_char(br);</span>
+<span class="fc" id="L113">                ch = (char)res;</span>
+            }
+
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">            if(res == -1)return null;</span>
+<span class="fc" id="L117">            sb.append(ch);</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">            if(is_spec_symbol(ch)==true)return sb.toString();</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">            if(ch =='&quot;')id=2;    /* prepare for string */</span>
+<span class="fc bfc" id="L120" title="All 2 branches covered.">            if(ch ==59)id=1;    /* prepare for comment */</span>
+
+<span class="fc" id="L122">            res = get_char(br);</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">            if (res == -1) {</span>
+<span class="nc" id="L124">                unget_char(ch,br);</span>
+<span class="nc" id="L125">                return sb.toString();</span>
+            }
+<span class="fc" id="L127">            ch = (char)res;</span>
+
+<span class="fc bfc" id="L129" title="All 2 branches covered.">            while (is_token_end(id,res) == false)/* until meet the end character */</span>
+            {
+<span class="fc" id="L131">                sb.append(ch);</span>
+<span class="fc" id="L132">                br.mark(4);</span>
+<span class="fc" id="L133">                res = get_char(br);</span>
+<span class="pc bpc" id="L134" title="1 of 2 branches missed.">                if (res == -1) {</span>
+<span class="nc" id="L135">                    break;</span>
+                }
+<span class="fc" id="L137">                ch = (char)res;</span>
+            }
+
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">            if(res == -1)       /* if end character is eof token    */</span>
+<span class="nc" id="L141">            { unget_char(ch,br);        /* then put back eof on token_stream */</span>
+<span class="nc" id="L142">                return sb.toString();</span>
+            }
+
+<span class="fc bfc" id="L145" title="All 2 branches covered.">            if(is_spec_symbol(ch)==true)     /* if end character is special_symbol */</span>
+<span class="fc" id="L146">            { unget_char(ch,br);        /* then put back this character       */</span>
+<span class="fc" id="L147">                return sb.toString();</span>
+            }
+<span class="fc bfc" id="L149" title="All 2 branches covered.">            if(id==1)                  /* if end character is &quot; and is string */</span>
+            {
+<span class="pc bpc" id="L151" title="1 of 2 branches missed.">                if (ch == '&quot;') {</span>
+<span class="nc" id="L152">                    sb.append(ch);</span>
+                }
+<span class="fc" id="L154">                return sb.toString();</span>
+            }
+<span class="pc bpc" id="L156" title="1 of 4 branches missed.">            if(id==0 &amp;&amp; ch==59)</span>
+                /* when not in string or comment,meet &quot;;&quot; */
+<span class="nc" id="L158">            { unget_char(ch,br);       /* then put back this character         */</span>
+<span class="nc" id="L159">                return sb.toString();</span>
+            }
+<span class="nc" id="L161">        } catch (IOException e) {</span>
+<span class="nc" id="L162">            e.printStackTrace();</span>
+<span class="fc" id="L163">        }</span>
+
+<span class="fc" id="L165">        return sb.toString();                   /* return nomal case token             */</span>
+    }
+
+    /*******************************************************/
+    /* NAME:	is_token_end                           */
+    /* INPUT:       a character,a token status             */
+    /* OUTPUT:	a BOOLEAN value                        */
+    /*******************************************************/
+    static boolean is_token_end(int str_com_id, int res)
+    //Fault #1: Added propper handling of whitespace characters and special symbols
+    {
+<span class="pc bpc" id="L176" title="1 of 2 branches missed.">        if(res==-1)return true; /* is eof token? */</span>
+<span class="fc" id="L177">        char ch = (char)res;</span>
+
+<span class="fc bfc" id="L179" title="All 2 branches covered.">        if(str_com_id==1)          /* is string token */</span>
+        {
+<span class="pc bpc" id="L181" title="3 of 8 branches missed.">            if(ch=='&quot;' || ch=='\n' || ch == '\r' || ch=='\t')   /* for string until meet another &quot; */</span>
+<span class="fc" id="L182">                return true;</span>
+            else
+<span class="fc" id="L184">                return false;</span>
+        }
+
+<span class="fc bfc" id="L187" title="All 2 branches covered.">        if(str_com_id==2)    /* is comment token */</span>
+        {
+<span class="pc bpc" id="L189" title="2 of 6 branches missed.">            if(ch=='\n' || ch == '\r' || ch=='\t')     /* for comment until meet end of line */</span>
+<span class="fc" id="L190">                return true;</span>
+            else
+<span class="fc" id="L192">                return false;</span>
+        }
+
+        //Fault #8: Added null character check
+<span class="fc bfc" id="L196" title="All 2 branches covered.">        if(is_spec_symbol(ch)) return true;</span>
+<span class="pc bpc" id="L197" title="3 of 12 branches missed.">        return (ch ==' ' || ch=='\n'|| ch=='\r' || ch=='\t' || ch=='\0' || ch==59);</span>
+    }
+
+    /****************************************************/
+    /* NAME :	token_type                          */
+    /* INPUT:       a token              */
+    /* OUTPUT:      an integer value                    */
+    /* DESCRIPTION: the integer value is corresponding  */
+    /*              to the different token type         */
+    /****************************************************/
+    static int token_type(String tok)
+    {
+<span class="fc bfc" id="L209" title="All 2 branches covered.">        if(is_keyword(tok))return(keyword);</span>
+<span class="fc bfc" id="L210" title="All 2 branches covered.">        if(is_spec_symbol(tok.charAt(0)))return(spec_symbol);</span>
+<span class="fc bfc" id="L211" title="All 2 branches covered.">        if(is_identifier(tok))return(identifier);</span>
+<span class="fc bfc" id="L212" title="All 2 branches covered.">        if(is_num_constant(tok))return(num_constant);</span>
+<span class="fc bfc" id="L213" title="All 2 branches covered.">        if(is_str_constant(tok))return(str_constant);</span>
+<span class="fc bfc" id="L214" title="All 2 branches covered.">        if(is_char_constant(tok))return(char_constant);</span>
+<span class="fc bfc" id="L215" title="All 2 branches covered.">        if(is_comment(tok))return(comment);</span>
+<span class="fc" id="L216">        return(error);                    /* else look as error token */</span>
+    }
+
+    /****************************************************/
+    /* NAME:	print_token                             */
+    /* INPUT:	a token                                 */
+    /****************************************************/
+    void print_token(String tok)
+    { int type;
+<span class="fc" id="L225">        type=token_type(tok);</span>
+<span class="fc bfc" id="L226" title="All 2 branches covered.">        if(type==error)</span>
+        {
+<span class="fc" id="L228">            System.out.print(&quot;error,\&quot;&quot; + tok + &quot;\&quot;.\n&quot;);</span>
+        }
+
+<span class="fc bfc" id="L231" title="All 2 branches covered.">        if(type==keyword)</span>
+        {
+<span class="fc" id="L233">            System.out.print(&quot;keyword,\&quot;&quot; + tok + &quot;\&quot;.\n&quot;);</span>
+        }
+
+<span class="fc bfc" id="L236" title="All 2 branches covered.">        if(type==spec_symbol)print_spec_symbol(tok);</span>
+<span class="fc bfc" id="L237" title="All 2 branches covered.">        if(type==identifier)</span>
+        {
+<span class="fc" id="L239">            System.out.print(&quot;identifier,\&quot;&quot; + tok + &quot;\&quot;.\n&quot;);</span>
+        }
+<span class="fc bfc" id="L241" title="All 2 branches covered.">        if(type==num_constant)</span>
+        {
+<span class="fc" id="L243">            System.out.print(&quot;numeric,&quot; + tok + &quot;.\n&quot;);</span>
+        }
+<span class="fc bfc" id="L245" title="All 2 branches covered.">        if(type==str_constant)</span>
+        {
+<span class="fc" id="L247">            System.out.print(&quot;string,&quot; + tok + &quot;.\n&quot;);</span>
+        }
+<span class="fc bfc" id="L249" title="All 2 branches covered.">        if(type==char_constant)</span>
+        {
+<span class="fc" id="L251">            System.out.print(&quot;character,\&quot;&quot; + tok.charAt(1) + &quot;\&quot;.\n&quot;);</span>
+        }
+<span class="fc bfc" id="L253" title="All 2 branches covered.">        if(type==comment)</span>
+        {
+<span class="fc" id="L255">            System.out.print(&quot;comment,\&quot;&quot; + tok + &quot;\&quot;.\n&quot;);</span>
+        }
+<span class="fc" id="L257">    }</span>
+
+    /* the code for tokens judgment function */
+
+
+    /*************************************/
+    /* NAME:	is_comment           */
+    /* INPUT: 	a token */
+    /* OUTPUT:      a BOOLEAN value      */
+    /*************************************/
+    static boolean is_comment(String ident)
+    {
+<span class="fc bfc" id="L269" title="All 2 branches covered.">        if( ident.charAt(0) ==59 )   /* the char is 59   */</span>
+<span class="fc" id="L270">            return true;</span>
+        else
+<span class="fc" id="L272">            return false;</span>
+    }
+
+    /*************************************/
+    /* NAME:	is_keyword           */
+    /* INPUT: 	a token */
+    /* OUTPUT:      a BOOLEAN value      */
+    /*************************************/
+    static boolean is_keyword(String str)
+    {
+<span class="pc bpc" id="L282" title="2 of 6 branches missed.">        if (str.equals(&quot;and&quot;) || str.equals(&quot;or&quot;) || str.equals(&quot;if&quot;) ||</span>
+<span class="pc bpc" id="L283" title="1 of 6 branches missed.">                str.equals(&quot;xor&quot;)||str.equals(&quot;lambda&quot;)||str.equals(&quot;=&gt;&quot;))</span>
+<span class="fc" id="L284">            return true;</span>
+        else
+<span class="fc" id="L286">            return false;</span>
+    }
+
+    /*************************************/
+    /* NAME:	is_char_constant     */
+    /* INPUT: 	a token */
+    /* OUTPUT:      a BOOLEAN value      */
+    /*************************************/
+    static boolean is_char_constant(String str)
+    {
+        //Fault #3: Added proper length check in
+<span class="fc bfc" id="L297" title="All 4 branches covered.">        if (str.length() != 2 || str.charAt(0) != '#') return false;</span>
+<span class="fc" id="L298">        return Character.isLetter(str.charAt(1));</span>
+    }
+
+    /*************************************/
+    /* NAME:	is_num_constant      */
+    /* INPUT: 	a token */
+    /* OUTPUT:      a BOOLEAN value      */
+    /*************************************/
+    static boolean is_num_constant(String str)
+    {
+        //Fault #2: Fixed array index issue
+<span class="pc bpc" id="L309" title="1 of 2 branches missed.">        if (str.length() == 0) return false;</span>
+<span class="fc bfc" id="L310" title="All 2 branches covered.">        if (!Character.isDigit(str.charAt(0))) return false;</span>
+
+<span class="fc bfc" id="L312" title="All 2 branches covered.">        for (int i = 0; i &lt; str.length(); i++) {</span>
+<span class="pc bpc" id="L313" title="1 of 2 branches missed.">            if (!Character.isDigit(str.charAt(i))) return false;</span>
+        }
+<span class="fc" id="L315">        return true;</span>
+    }
+
+    /*************************************/
+    /* NAME:	is_str_constant      */
+    /* INPUT: 	a token */
+    /* OUTPUT:      a BOOLEAN value      */
+    /*************************************/
+    static boolean is_str_constant(String str)
+    {
+<span class="fc bfc" id="L325" title="All 2 branches covered.">        if (str.charAt(0) != '&quot;') return false;</span>
+
+<span class="pc bpc" id="L327" title="1 of 2 branches missed.">        for (int i = 1; i &lt; str.length(); i++) {</span>
+<span class="fc bfc" id="L328" title="All 2 branches covered.">            if (str.charAt(i) == '&quot;') return true;</span>
+        }
+<span class="nc" id="L330">        return false;  // Fault #4: No closing quote found</span>
+    }
+
+    /*************************************/
+    /* NAME:	is_identifier         */
+    /* INPUT: 	a token */
+    /* OUTPUT:      a BOOLEAN value      */
+    /*************************************/
+    static boolean is_identifier(String str)
+    {
+        //Fault #5: Fixed the logic to correctly validate identifiers
+<span class="fc bfc" id="L341" title="All 2 branches covered.">        if (!Character.isLetter(str.charAt(0))) return false;</span>
+<span class="pc bpc" id="L342" title="1 of 2 branches missed.">        if (is_keyword(str))return false; //Fault #7: Check if its a keyword</span>
+
+<span class="fc bfc" id="L344" title="All 2 branches covered.">        for (int i = 1; i &lt; str.length(); i++) {</span>
+<span class="pc bpc" id="L345" title="1 of 2 branches missed.">            if (!Character.isLetterOrDigit(str.charAt(i))) {</span>
+<span class="nc" id="L346">                return false;</span>
+            }
+        }
+<span class="fc" id="L349">        return true;</span>
+    }
+
+
+
+    /*************************************************/
+    /* NAME:        print_spec_symbol                */
+    /* INPUT:       a spec_symbol token */
+    /* OUTPUT :     print out the spec_symbol token  */
+    /*              according to the form required   */
+    /*************************************************/
+    static void print_spec_symbol(String str)
+    {
+        //Fault #6: Added error case handling and fixed output format
+<span class="fc bfc" id="L363" title="All 2 branches covered.">        if      (str.equals(&quot;(&quot;))</span>
+        {
+
+<span class="fc" id="L366">            System.out.print(&quot;lparen.\n&quot;);</span>
+<span class="fc" id="L367">            return;</span>
+        }
+<span class="fc bfc" id="L369" title="All 2 branches covered.">        if (str.equals(&quot;)&quot;))</span>
+        {
+
+<span class="fc" id="L372">            System.out.print(&quot;rparen.\n&quot;);</span>
+<span class="fc" id="L373">            return;</span>
+        }
+<span class="fc bfc" id="L375" title="All 2 branches covered.">        if (str.equals(&quot;[&quot;))</span>
+        {
+<span class="fc" id="L377">            System.out.print(&quot;lsquare.\n&quot;);</span>
+<span class="fc" id="L378">            return;</span>
+        }
+<span class="fc bfc" id="L380" title="All 2 branches covered.">        if (str.equals(&quot;]&quot;))</span>
+        {
+
+<span class="fc" id="L383">            System.out.print(&quot;rsquare.\n&quot;);</span>
+<span class="fc" id="L384">            return;</span>
+        }
+<span class="pc bpc" id="L386" title="1 of 2 branches missed.">        if (str.equals(&quot;'&quot;))</span>
+        {
+<span class="nc" id="L388">            System.out.print(&quot;quote.\n&quot;);</span>
+<span class="nc" id="L389">            return;</span>
+        }
+<span class="fc bfc" id="L391" title="All 2 branches covered.">        if (str.equals(&quot;`&quot;))</span>
+        {
+
+<span class="fc" id="L394">            System.out.print(&quot;bquote.\n&quot;);</span>
+<span class="fc" id="L395">            return;</span>
+        }
+
+<span class="pc bpc" id="L398" title="1 of 2 branches missed.">        if (str.equals(&quot;,&quot;))</span>
+        {
+<span class="fc" id="L400">            System.out.print(&quot;comma.\n&quot;);</span>
+<span class="fc" id="L401">            return;</span>
+        }
+
+<span class="nc" id="L404">        System.out.print(&quot;error,\&quot;&quot; + str + &quot;\&quot;.\n&quot;);</span>
+<span class="nc" id="L405">    }</span>
+
+    /*************************************/
+    /* NAME:        is_spec_symbol       */
+    /* INPUT:       a token */
+    /* OUTPUT:      a BOOLEAN value      */
+    /*************************************/
+    static boolean is_spec_symbol(char c)
+    {
+<span class="fc bfc" id="L414" title="All 2 branches covered.">        if (c == '(')</span>
+        {
+<span class="fc" id="L416">            return true;</span>
+        }
+<span class="fc bfc" id="L418" title="All 2 branches covered.">        if (c == ')')</span>
+        {
+<span class="fc" id="L420">            return true;</span>
+        }
+<span class="fc bfc" id="L422" title="All 2 branches covered.">        if (c == '[')</span>
+        {
+<span class="fc" id="L424">            return true;</span>
+        }
+<span class="fc bfc" id="L426" title="All 2 branches covered.">        if (c == ']')</span>
+        {
+<span class="fc" id="L428">            return true;</span>
+        }
+<span class="pc bpc" id="L430" title="1 of 2 branches missed.">        if (c == '/')</span>
+        {
+<span class="nc" id="L432">            return true;</span>
+        }
+<span class="fc bfc" id="L434" title="All 2 branches covered.">        if (c == '`')</span>
+        {
+<span class="fc" id="L436">            return true;</span>
+        }
+<span class="fc bfc" id="L438" title="All 2 branches covered.">        if (c == ',')</span>
+        {
+<span class="fc" id="L440">            return true;</span>
+        }
+<span class="fc" id="L442">        return false;     /* others return FALSE */</span>
+    }
+
+    public static void main(String[] args)  {
+<span class="fc" id="L446">        String fname = &quot;&quot;;//Fault #10 Initialize with empty string instead of null</span>
+<span class="fc bfc" id="L447" title="All 2 branches covered.">        if (args.length == 0) {	/* if not given filename,take as '&quot;&quot;' */</span>
+<span class="fc" id="L448">            fname = &quot;&quot;;</span>
+<span class="fc bfc" id="L449" title="All 2 branches covered.">        } else if (args.length == 1) {</span>
+<span class="fc" id="L450">            fname = args[0];</span>
+        } else {
+<span class="fc" id="L452">            System.out.print(&quot;Error! Please give the token stream\n&quot;);</span>
+<span class="fc" id="L453">            return;//Fault #11: changed to return</span>
+        }
+<span class="fc" id="L455">        FixedPrinttokens t = new FixedPrinttokens();</span>
+<span class="fc" id="L456">        BufferedReader br = t.open_token_stream(fname);	/* open token stream */</span>
+        //Fault #12: Exit if we couldnt open the stream
+<span class="fc bfc" id="L458" title="All 2 branches covered.">        if(br == null)</span>
+        {
+<span class="fc" id="L460">            return;</span>
+        }
+<span class="fc" id="L462">        String tok = t.get_token(br);</span>
+<span class="fc bfc" id="L463" title="All 2 branches covered.">        while (tok != null) {    /* take one token each time until eof */</span>
+<span class="fc" id="L464">            t.print_token(tok);</span>
+<span class="fc" id="L465">            tok = t.get_token(br);</span>
+
+        }
+<span class="fc" id="L468">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

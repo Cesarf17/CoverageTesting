@@ -1,0 +1,11 @@
+if (x == 42) [
+    "Hello World"
+    ; This is a comment
+    #c
+    123
+    identifier123
+    lambda
+    =>
+    `
+    ,
+]
