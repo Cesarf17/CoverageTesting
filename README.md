@@ -16,7 +16,7 @@ Created detailed documentation including CFGs and test cases
 Maintained clean separation between original and fixed implementations
 
 Project Structure
-Copyproject-root/
+project-root/
 ├── src/
 │   ├── main/java/
 │   │   ├── Printtokens.java           # Original file with faults
@@ -33,6 +33,7 @@ Copyproject-root/
     ├── Faults and Corrections.pdf     # Documentation of found and fixed faults
     ├── Summary and Discussion.pdf     # Project analysis and conclusions
     └── README.txt
+    
 Technical Implementation
 Token Types Handled
 
